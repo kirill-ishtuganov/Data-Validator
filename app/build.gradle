@@ -27,8 +27,8 @@ application {
 }
 
 jacocoTestReport {
-    reports { xml.required = true }
     dependsOn test
 }
 
+tasks.jacocoTestReport { reports { xml.required.set(true) } }
 check.dependsOn jacocoTestCoverageVerification
