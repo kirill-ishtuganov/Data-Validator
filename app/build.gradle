@@ -26,6 +26,9 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
-jacocoTestReport { reports { xml.required = true } }
+jacocoTestReport {
+    reports { xml.required = true }
+    dependsOn test
+}
 
 check.dependsOn jacocoTestCoverageVerification

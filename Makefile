@@ -1,12 +1,12 @@
 build:
-        make -C app build
+	make -C app build
 
 report:
-        make -C app report
+	make -C app report
 
 tests:
-        make -C app test
+	make -C app test
 
 lint:
-        make -C app lint
+	make -C app lint
 
