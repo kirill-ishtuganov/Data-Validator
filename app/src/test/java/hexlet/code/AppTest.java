@@ -55,11 +55,11 @@ public class AppTest {
         assertTrue(schema.isValid(data));
         schema.required();
         assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(new HashMap<>()));
         assertTrue(schema.isValid(data));
         schema.sizeOf(2);
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
         assertTrue(schema.isValid(data));
-
     }
 }
