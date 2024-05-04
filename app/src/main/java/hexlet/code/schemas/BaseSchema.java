@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema <T> {
+public abstract class BaseSchema<T> {
 
     public boolean isValid(T value) {
 

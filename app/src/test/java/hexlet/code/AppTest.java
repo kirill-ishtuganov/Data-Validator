@@ -37,7 +37,7 @@ public class AppTest {
         assertFalse(schema.isValid(-2));
         assertFalse(schema.isValid(0));
         assertTrue(schema.isValid(6));
-        schema.inRange(4,10);
+        schema.inRange(4, 10);
         assertFalse(schema.isValid(2));
         assertFalse(schema.isValid(11));
         assertTrue(schema.isValid(10));
