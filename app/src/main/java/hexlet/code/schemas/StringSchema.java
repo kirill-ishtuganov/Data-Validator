@@ -1,38 +1,28 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends Schema {
+import java.util.function.Predicate;
 
-    private boolean mustBeFilled;
-    private Integer minLength;
-    private String substring;
+public class StringSchema extends BaseSchema {
+
+    private Predicate<String> isFilled;
+    private Predicate<String> isLongEnough;
+    private Predicate<String> isContainsSubstring;
 
     public StringSchema() {
-        mustBeFilled = false;
-        minLength = null;
-        substring = null;
+        isFilled = input -> true;
+        isLongEnough = input -> true;
+        isContainsSubstring = input -> true;
     }
 
     public void required() {
-        mustBeFilled = true;
+        isFilled = input -> !(input == null || input.isEmpty());
     }
 
     public void minLength(int value) {
-        minLength = value;
+        isLongEnough = input -> input.length() > value;
     }
 
     public void contains(String value) {
-        substring = value;
-    }
-
-    public boolean isValid(String value) {
-
-        if (mustBeFilled && (value == null || value == "")) {
-            return false;
-        } else if (minLength != null && value.length() < minLength) {
-            return false;
-        } else if (substring != null && !value.contains(substring)) {
-            return false;
-        }
-        return true;
+        isContainsSubstring = input -> input.contains(value);
     }
 }

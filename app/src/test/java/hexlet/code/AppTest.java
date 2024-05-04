@@ -22,4 +22,25 @@ public class AppTest {
         assertFalse(schema.isValid("He"));
         assertTrue(schema.isValid("Hello"));
     }
+
+    @Test
+    public final void testNumberSchema() {
+
+        var schema = new Validator().number();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(-5));
+        assertTrue(schema.isValid(23));
+        assertTrue(schema.isValid(0));
+        schema.required();
+        assertFalse(schema.isValid(null));
+        schema.positive();
+        assertFalse(schema.isValid(-2));
+        assertFalse(schema.isValid(0));
+        assertTrue(schema.isValid(6));
+        schema.inRange(4,10);
+        assertFalse(schema.isValid(2));
+        assertFalse(schema.isValid(11));
+        assertTrue(schema.isValid(10));
+
+    }
 }
