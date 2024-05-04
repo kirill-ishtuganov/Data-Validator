@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.Test;
+import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -41,6 +42,24 @@ public class AppTest {
         assertFalse(schema.isValid(2));
         assertFalse(schema.isValid(11));
         assertTrue(schema.isValid(10));
+
+    }
+
+    @Test
+    public final void testMapSchema() {
+
+        var schema = new Validator().map();
+        var data = new HashMap<String, String>();
+        data.put("key1", "value1");
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(data));
+        schema.required();
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(data));
+        schema.sizeOf(2);
+        assertFalse(schema.isValid(data));
+        data.put("key2", "value2");
+        assertTrue(schema.isValid(data));
 
     }
 }

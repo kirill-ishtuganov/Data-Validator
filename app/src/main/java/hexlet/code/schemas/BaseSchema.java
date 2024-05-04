@@ -15,7 +15,6 @@ public abstract class BaseSchema<T> {
                     try {
                         field.setAccessible(true);
                         result = (Predicate<T>) field.get(this);
-                        field.setAccessible(false);
                     } catch (IllegalAccessException e) {
                         throw new RuntimeException(e);
                     }
