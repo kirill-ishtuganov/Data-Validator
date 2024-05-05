@@ -20,7 +20,7 @@ public class MapSchema<L, R> extends BaseSchema {
         isFilled = input -> !(input == null);
     }
 
-    public void sizeOf(int value) {
+    public void sizeof(int value) {
         isInRightSize = input -> input.size() == value;
     }
 

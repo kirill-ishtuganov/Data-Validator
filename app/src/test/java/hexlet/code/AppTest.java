@@ -41,7 +41,7 @@ public class AppTest {
         assertFalse(schema.isValid(-2));
         assertFalse(schema.isValid(0));
         assertTrue(schema.isValid(6));
-        schema.inRange(4, 10);
+        schema.range(4, 10);
         assertFalse(schema.isValid(2));
         assertFalse(schema.isValid(11));
         assertTrue(schema.isValid(10));
@@ -60,7 +60,7 @@ public class AppTest {
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
         assertTrue(schema.isValid(data));
-        schema.sizeOf(2);
+        schema.sizeof(2);
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
         assertTrue(schema.isValid(data));

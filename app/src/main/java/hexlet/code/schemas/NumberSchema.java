@@ -22,7 +22,7 @@ public class NumberSchema extends BaseSchema {
         isPositive = input -> input > 0;
     }
 
-    public void inRange(int min, int max) {
+    public void range(int min, int max) {
         isInRange = input -> min <= input && input <= max;
     }
 }
