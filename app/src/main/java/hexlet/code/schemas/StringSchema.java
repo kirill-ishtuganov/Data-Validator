@@ -19,7 +19,9 @@ public class StringSchema extends BaseSchema {
     }
 
     public void minLength(int value) {
-        isLongEnough = input -> input.length() > value;
+        isLongEnough = input -> {
+            return input == null ? true : input.length() > value;
+        };
     }
 
     public void contains(String value) {

@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'jacoco'
-    id 'application'
 }
 
 group = 'hexlet.code'
@@ -20,10 +19,6 @@ dependencies {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
-}
-
-application {
-    mainClass = 'hexlet.code.App'
 }
 
 jacocoTestReport {

@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema<T> {
+public class BaseSchema<T> {
 
     public boolean isValid(T value) {
 
@@ -22,6 +22,5 @@ public abstract class BaseSchema<T> {
                 })
                 .toList();
         return !results.contains(false);
-
     }
 }
