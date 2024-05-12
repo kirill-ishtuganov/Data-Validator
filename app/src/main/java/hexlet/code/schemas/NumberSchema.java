@@ -11,13 +11,13 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema positive() {
-        Predicate<Integer> rule = input -> input > 0;
+        Predicate<Integer> rule = input -> input == null ? true :  input > 0;
         addValidation("positive", rule);
         return this;
     }
 
     public NumberSchema range(int min, int max) {
-        Predicate<Integer> rule = input -> min <= input && input <= max;
+        Predicate<Integer> rule = input -> input == null ? false : min <= input && input <= max;
         addValidation("range", rule);
         return this;
     }
