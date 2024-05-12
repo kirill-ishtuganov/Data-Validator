@@ -4,18 +4,21 @@ import java.util.function.Predicate;
 
 public class NumberSchema extends BaseSchema<Integer> {
 
-    public void required() {
+    public NumberSchema required() {
         Predicate<Integer> rule = input -> !(input == null);
         addValidation("required", rule);
+        return this;
     }
 
-    public void positive() {
+    public NumberSchema positive() {
         Predicate<Integer> rule = input -> input > 0;
         addValidation("positive", rule);
+        return this;
     }
 
-    public void range(int min, int max) {
+    public NumberSchema range(int min, int max) {
         Predicate<Integer> rule = input -> min <= input && input <= max;
         addValidation("range", rule);
+        return this;
     }
 }

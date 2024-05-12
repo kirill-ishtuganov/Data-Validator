@@ -6,17 +6,19 @@ import java.util.function.Predicate;
 
 public class MapSchema<L, T> extends BaseSchema<Map<L, T>> {
 
-    public void required() {
+    public MapSchema<L, T> required() {
         Predicate<Map<L, T>> rule = input -> !(input == null);
         addValidation("required", rule);
+        return this;
     }
 
-    public void sizeof(int value) {
+    public MapSchema<L, T> sizeof(int value) {
         Predicate<Map<L, T>> rule = input -> input.size() == value;
         addValidation("sizeof", rule);
+        return this;
     }
 
-    public void shape(Map<L, BaseSchema<T>> schemas) {
+    public MapSchema<L, T> shape(Map<L, BaseSchema<T>> schemas) {
 
         Predicate<Map<L, T>> rule = input -> {
             List<Boolean> results = input.entrySet().stream()
@@ -29,5 +31,6 @@ public class MapSchema<L, T> extends BaseSchema<Map<L, T>> {
             return !results.contains(false);
         };
         addValidation("shape", rule);
+        return this;
     }
 }

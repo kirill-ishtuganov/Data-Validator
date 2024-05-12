@@ -39,18 +39,10 @@ public class TestMapSchema {
     public final void testShape() {
 
         var v = new Validator();
+        var schema = v.map();
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
-
-        var firstNameSchema = v.string();
-        firstNameSchema.required();
-        schemas.put("firstName", firstNameSchema);
-
-        var lastNameSchema = v.string();
-        lastNameSchema.required();
-        lastNameSchema.minLength(2);
-        schemas.put("lastName", lastNameSchema);
-
-        var schema = new Validator().map();
+        schemas.put("firstName", v.string().required());
+        schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
 
         Map<String, String> human1 = new HashMap<>();
