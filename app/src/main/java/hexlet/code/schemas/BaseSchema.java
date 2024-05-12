@@ -15,11 +15,11 @@ public class BaseSchema<T> {
         rules.put("init", rule);
     }
 
-    public void addValidation(String ruleName, Predicate<T> rule) {
+    public final void addValidation(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
     }
 
-    public boolean isValid(T value) {
+    public final boolean isValid(T value) {
 
         List<Boolean> results = rules.values().stream()
                 .map(rule -> rule.test(value))
