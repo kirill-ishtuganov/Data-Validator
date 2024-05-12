@@ -2,29 +2,22 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
-public class StringSchema extends BaseSchema {
-
-    private Predicate<String> isFilled;
-    private Predicate<String> isLongEnough;
-    private Predicate<String> isContainsSubstring;
-
-    public StringSchema() {
-        isFilled = input -> true;
-        isLongEnough = input -> true;
-        isContainsSubstring = input -> true;
-    }
+public class StringSchema extends BaseSchema<String> {
 
     public void required() {
-        isFilled = input -> !(input == null || input.isEmpty());
+        Predicate<String> rule = input -> !(input == null || input.isEmpty());
+        addValidation("required", rule);
     }
 
     public void minLength(int value) {
-        isLongEnough = input -> {
+        Predicate<String> rule = input -> {
             return input == null ? true : input.length() > value;
         };
+        addValidation("minLength", rule);
     }
 
     public void contains(String value) {
-        isContainsSubstring = input -> input.contains(value);
+        Predicate<String> rule = input -> input == null ? false : input.contains(value);
+        addValidation("contains", rule);
     }
 }

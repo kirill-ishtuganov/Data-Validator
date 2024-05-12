@@ -4,38 +4,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class MapSchema<L, R> extends BaseSchema {
-
-    private Predicate<Map<L, R>> isFilled;
-    private Predicate<Map<L, R>> isInRightSize;
-    private Predicate<Map<L, BaseSchema<R>>> isMatchesThePattern;
-
-    public MapSchema() {
-        isFilled = input -> true;
-        isInRightSize = input -> true;
-        isMatchesThePattern = input -> true;
-    }
+public class MapSchema<L, T> extends BaseSchema<Map<L, T>> {
 
     public void required() {
-        isFilled = input -> !(input == null);
+        Predicate<Map<L, T>> rule = input -> !(input == null);
+        addValidation("required", rule);
     }
 
     public void sizeof(int value) {
-        isInRightSize = input -> input.size() == value;
+        Predicate<Map<L, T>> rule = input -> input.size() == value;
+        addValidation("sizeof", rule);
     }
 
-    public void shape(Map<L, BaseSchema<R>> schemas) {
+    public void shape(Map<L, BaseSchema<T>> schemas) {
 
-        isMatchesThePattern = input -> {
-            var inputEntries = input.entrySet();
-            List<Boolean> results = inputEntries.stream()
+        Predicate<Map<L, T>> rule = input -> {
+            List<Boolean> results = input.entrySet().stream()
                     .map(entry -> {
                         var key = entry.getKey();
-                        var value = (R) entry.getValue();
-                        return schemas.containsKey(key) && schemas.get(key).isValid(value);
+                        var value = entry.getValue();
+                        return schemas.get(key).isValid(value);
                     })
                     .toList();
             return !results.contains(false);
         };
+        addValidation("shape", rule);
     }
 }

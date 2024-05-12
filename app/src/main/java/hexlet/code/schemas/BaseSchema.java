@@ -1,25 +1,28 @@
 package hexlet.code.schemas;
 
-import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class BaseSchema<T> {
 
+    private final Map<String, Predicate<T>> rules;
+
+    public BaseSchema() {
+        this.rules = new HashMap<>();
+        Predicate<T> rule = input -> true;
+        rules.put("init", rule);
+    }
+
+    public void addValidation(String ruleName, Predicate<T> rule) {
+        rules.put(ruleName, rule);
+    }
+
     public boolean isValid(T value) {
 
-        List<Field> fields = List.of(this.getClass().getDeclaredFields());
-        List<Boolean> results = fields.stream()
-                .map(field ->  {
-                    Predicate<T> result;
-                    try {
-                        field.setAccessible(true);
-                        result = (Predicate<T>) field.get(this);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return result.test(value);
-                })
+        List<Boolean> results = rules.values().stream()
+                .map(rule -> rule.test(value))
                 .toList();
         return !results.contains(false);
     }

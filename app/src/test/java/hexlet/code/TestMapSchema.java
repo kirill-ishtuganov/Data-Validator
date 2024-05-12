@@ -4,52 +4,13 @@ import hexlet.code.schemas.BaseSchema;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AppTest {
+public class TestMapSchema {
 
     @Test
-    public final void testStringSchema() {
-
-        var schema = new Validator().string();
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid("Hello"));
-        schema.required();
-        assertFalse(schema.isValid(null));
-        assertFalse(schema.isValid(""));
-        schema.contains("He");
-        assertFalse(schema.isValid("ello"));
-        assertTrue(schema.isValid("Hello"));
-        schema.minLength(3);
-        assertFalse(schema.isValid("He"));
-        assertTrue(schema.isValid("Hello"));
-    }
-
-    @Test
-    public final void testNumberSchema() {
-
-        var schema = new Validator().number();
-        assertTrue(schema.isValid(null));
-        assertTrue(schema.isValid(-5));
-        assertTrue(schema.isValid(23));
-        assertTrue(schema.isValid(0));
-        schema.required();
-        assertFalse(schema.isValid(null));
-        schema.positive();
-        assertFalse(schema.isValid(-2));
-        assertFalse(schema.isValid(0));
-        assertTrue(schema.isValid(6));
-        schema.range(4, 10);
-        assertFalse(schema.isValid(2));
-        assertFalse(schema.isValid(11));
-        assertTrue(schema.isValid(10));
-
-    }
-
-    @Test
-    public final void testMapSchema() {
+    public final void testRequired() {
 
         var schema = new Validator().map();
         var data = new HashMap<String, String>();
@@ -59,6 +20,14 @@ public class AppTest {
         schema.required();
         assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(new HashMap<>()));
+    }
+
+    @Test
+    public final void testSizeof() {
+
+        var schema = new Validator().map();
+        var data = new HashMap<String, String>();
+        data.put("key1", "value1");
         assertTrue(schema.isValid(data));
         schema.sizeof(2);
         assertFalse(schema.isValid(data));
@@ -67,7 +36,7 @@ public class AppTest {
     }
 
     @Test
-    public final void testMapSchemaShape() {
+    public final void testShape() {
 
         var v = new Validator();
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
@@ -81,7 +50,7 @@ public class AppTest {
         lastNameSchema.minLength(2);
         schemas.put("lastName", lastNameSchema);
 
-        var schema = v.map();
+        var schema = new Validator().map();
         schema.shape(schemas);
 
         Map<String, String> human1 = new HashMap<>();

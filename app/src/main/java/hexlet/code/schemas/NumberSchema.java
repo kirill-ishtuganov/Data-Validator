@@ -2,27 +2,20 @@ package hexlet.code.schemas;
 
 import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema {
-
-    private Predicate<Integer> isFilled;
-    private Predicate<Integer> isPositive;
-    private Predicate<Integer> isInRange;
-
-    public NumberSchema() {
-        isFilled = input -> true;
-        isPositive = input -> true;
-        isInRange = input -> true;
-    }
+public class NumberSchema extends BaseSchema<Integer> {
 
     public void required() {
-        isFilled = input -> !(input == null);
+        Predicate<Integer> rule = input -> !(input == null);
+        addValidation("required", rule);
     }
 
     public void positive() {
-        isPositive = input -> input > 0;
+        Predicate<Integer> rule = input -> input > 0;
+        addValidation("positive", rule);
     }
 
     public void range(int min, int max) {
-        isInRange = input -> min <= input && input <= max;
+        Predicate<Integer> rule = input -> min <= input && input <= max;
+        addValidation("range", rule);
     }
 }
