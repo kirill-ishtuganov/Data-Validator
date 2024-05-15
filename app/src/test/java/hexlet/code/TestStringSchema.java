@@ -10,7 +10,6 @@ public class TestStringSchema {
     public final void testRequired() {
 
         var schema = new Validator().string();
-        assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(""));
         assertTrue(schema.isValid("Hello"));
         schema.required();
@@ -26,6 +25,7 @@ public class TestStringSchema {
         schema.contains("He");
         assertFalse(schema.isValid("ello"));
         assertTrue(schema.isValid("Hello"));
+        assertTrue(schema.isValid(null));
     }
 
     @Test
@@ -36,5 +36,6 @@ public class TestStringSchema {
         schema.minLength(3);
         assertFalse(schema.isValid("He"));
         assertTrue(schema.isValid("Hello"));
+        assertTrue(schema.isValid(null));
     }
 }

@@ -33,6 +33,7 @@ public class TestMapSchema {
         assertFalse(schema.isValid(data));
         data.put("key2", "value2");
         assertTrue(schema.isValid(data));
+        assertTrue(schema.isValid(null));
     }
 
     @Test
@@ -44,6 +45,7 @@ public class TestMapSchema {
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
+        assertTrue(schema.isValid(null));
 
         Map<String, String> human1 = new HashMap<>();
         human1.put("firstName", "John");
