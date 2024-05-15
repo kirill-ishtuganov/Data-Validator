@@ -18,7 +18,7 @@ public class BaseSchema<T> {
         rules.put(ruleName, rule);
     }
 
-    public BaseSchema<T> required() {
+    public  BaseSchema<T> required() {
         addValidation("required", Objects::nonNull);
         return this;
     }
