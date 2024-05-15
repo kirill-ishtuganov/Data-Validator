@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class BaseSchema<T> {
+public abstract class BaseSchema<T> {
 
     private final Map<String, Predicate<T>> rules;
 
@@ -18,7 +18,7 @@ public class BaseSchema<T> {
         rules.put(ruleName, rule);
     }
 
-    public  BaseSchema<T> required() {
+    public BaseSchema<T> required() {
         addValidation("required", Objects::nonNull);
         return this;
     }
