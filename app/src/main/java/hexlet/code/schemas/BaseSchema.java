@@ -3,10 +3,9 @@ package hexlet.code.schemas;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema<T> {
+public class BaseSchema<T> {
 
     private final Map<String, Predicate<T>> rules;
 
@@ -16,11 +15,6 @@ public abstract class BaseSchema<T> {
 
     protected final void addValidation(String ruleName, Predicate<T> rule) {
         rules.put(ruleName, rule);
-    }
-
-    public BaseSchema<T> required() {
-        addValidation("required", Objects::nonNull);
-        return this;
     }
 
     public final boolean isValid(T value) {
