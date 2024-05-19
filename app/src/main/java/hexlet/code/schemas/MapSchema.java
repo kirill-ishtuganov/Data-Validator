@@ -1,16 +1,9 @@
 package hexlet.code.schemas;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 public class MapSchema<L, T> extends BaseSchema<Map<L, T>> {
-
-    public final MapSchema<L, T> required() {
-        addValidation("required", Objects::nonNull);
-        return this;
-    }
 
     public final MapSchema<L, T> sizeof(int value) {
         addValidation("sizeof", input -> input == null || input.size() == value);
@@ -23,14 +16,12 @@ public class MapSchema<L, T> extends BaseSchema<Map<L, T>> {
             if (input == null) {
                 return true;
             }
-            List<Boolean> results = input.entrySet().stream()
-                    .map(entry -> {
+            return input.entrySet().stream()
+                    .allMatch(entry -> {
                         var key = entry.getKey();
                         var value = entry.getValue();
                         return schemas.get(key).isValid(value);
-                    })
-                    .toList();
-            return !results.contains(false);
+                    });
         };
         addValidation("shape", rule);
         return this;

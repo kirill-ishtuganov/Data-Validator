@@ -1,8 +1,8 @@
 package hexlet.code.schemas;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class BaseSchema<T> {
@@ -17,11 +17,13 @@ public class BaseSchema<T> {
         rules.put(ruleName, rule);
     }
 
-    public final boolean isValid(T value) {
+    public BaseSchema<T> required() {
+        addValidation("required", Objects::nonNull);
+        return this;
+    }
 
-        List<Boolean> results = rules.values().stream()
-                .map(rule -> rule.test(value))
-                .toList();
-        return !results.contains(false);
+    public final boolean isValid(T value) {
+        return rules.values().stream()
+                .allMatch(rule -> rule.test(value));
     }
 }
