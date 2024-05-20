@@ -18,8 +18,9 @@ public class BaseSchema<T> {
     }
 
     /**
-     * Метод должен возвращать правило, проверяющее на пустоту
+     *
      * @return
+     * Метод должен возвращать правило, проверяющее на пустоту
      */
     public BaseSchema<T> required() {
         addValidation("required", Objects::nonNull);
